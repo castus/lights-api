@@ -35,4 +35,4 @@ jobs:
         platforms: |
           linux/amd64
         push: true
-        tags: c4stus/lights-api:${{ env.GITHUB_SHA }}
+        tags: c4stus/lights-api:${{ github.head_ref }}
