@@ -48,14 +48,15 @@ jobs:
 
     - name: Deploy to ArgoCD
       run: |
-        status_code=$(curl -o ./curl-request -w "%{http_code}" -X POST https://api.github.com/repos/castus/lights-api-charts/dispatches \
+        set -e
+        status_code=$(curl -o ./curl-request -w "%{response_code}" -X POST https://api.github.com/repos/castus/lights-api-charts/dispatches \
         -H 'Accept: application/vnd.github.everest-preview+json' \
         -u ${{ secrets.CHARTS_DEPLOY_TOKEN }} \
         --data '{"event_type": "deploy", "client_payload": { "image_tag": "'"${{ steps.meta.outputs.tags }}"'" }}')
+        cat ./curl-request
 
-        if [ $status_code -eq 200 ]; then
+        if [[ $status_code -eq 200 ]]; then
           echo "Request send"
         else
-          cat ./curl-request
           exit 1
         fi
