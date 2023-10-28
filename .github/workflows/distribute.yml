@@ -52,4 +52,4 @@ jobs:
         curl -w "%{response_code}" -X POST https://api.github.com/repos/castus/lights-api-charts/dispatches \
         -H 'Accept: application/vnd.github.everest-preview+json' \
         -u ${{ secrets.CHARTS_DEPLOY_TOKEN }} \
-        --data '{"event_type": "deploy", "client_payload": { "image_tag": "'"${{ steps.meta.outputs.labels["org.opencontainers.image.version"] }}"'" }}'
+        --data '{"event_type": "deploy", "client_payload": { "image_tag": "'"${{ steps.meta.outputs.labels.org\.opencontainers\.image\.version }}"'" }}'
