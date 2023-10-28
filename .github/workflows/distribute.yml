@@ -45,3 +45,10 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Deploy to ArgoCD
+      run: |
+        curl -X POST https://api.github.com/repos/c4stus/lights-api-charts/dispatches \
+        -H 'Accept: application/vnd.github.everest-preview+json' \
+        -u ${{ secrets.CHARTS_DEPLOY_TOKEN }} \
+        --data '{"event_type": "deploy", "client_payload": { "image_tag": "'"${{ steps.meta.outputs.tags }}"'" }}'
